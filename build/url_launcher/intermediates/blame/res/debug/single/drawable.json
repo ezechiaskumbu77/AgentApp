@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\HP\\Documents\\KumbuKumbuEzechias\\Engineering\\Templates\\PPC-Agent\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-2\\files-2.1\\2ef640fa7bc6063a911ed220edff4d8f\\core-1.1.0\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Documents\\KumbuKumbuEzechias\\Engineering\\Templates\\PPC-Agent\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-2\\files-2.1\\2ef640fa7bc6063a911ed220edff4d8f\\core-1.1.0\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Documents\\KumbuKumbuEzechias\\Engineering\\Templates\\PPC-Agent\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-2\\files-2.1\\2ef640fa7bc6063a911ed220edff4d8f\\core-1.1.0\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Documents\\KumbuKumbuEzechias\\Engineering\\Templates\\PPC-Agent\\build\\url_launcher\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-2\\files-2.1\\2ef640fa7bc6063a911ed220edff4d8f\\core-1.1.0\\res\\drawable\\notification_tile_bg.xml"
+    }
+]

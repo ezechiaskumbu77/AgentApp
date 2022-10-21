@@ -1,0 +1,212 @@
+import 'package:delivery_owner/models/user.dart';
+import 'package:delivery_owner/service/shopManagerService.dart';
+import 'package:delivery_owner/ui/login/createaccount.dart';
+import 'package:delivery_owner/ui/shopmanager/createShopmanager.dart';
+import 'package:flutter/material.dart';
+import 'package:delivery_owner/main.dart';
+import 'package:delivery_owner/ui/widgets/ibackground4.dart';
+import 'package:delivery_owner/ui/widgets/ibox.dart';
+import 'package:delivery_owner/ui/widgets/ibutton.dart';
+import 'package:delivery_owner/ui/widgets/iinputField2.dart';
+import 'package:delivery_owner/ui/widgets/iinputField2Password.dart';
+import '../../service/authservice.dart';
+
+class SetPhoneShopManager extends StatefulWidget {
+
+  final Function(String, Map<String, dynamic>) callback;
+
+  SetPhoneShopManager({Key key, this.callback }) : super(key: key);
+  @override
+  _SetPhoneShopManagerState createState() => _SetPhoneShopManagerState();
+}
+
+class _SetPhoneShopManagerState extends State<SetPhoneShopManager>
+    with SingleTickerProviderStateMixin {
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //
+  //
+
+  String errorMessage = "";
+  _pressLoginButton() async {
+    bool st =true ;
+    print("User pressed \"LOGIN\" button");
+    if (editControllerName.text.isEmpty || editControllerName.text.length< 9 ) {
+      st =false;
+      setState(() {
+        errorMessage = "Le numéro est incorrect";
+      });
+
+    } else {
+      setState(() {
+        errorMessage = "";
+      });
+    }
+
+    ShopManagerService managerService = ShopManagerService();
+
+
+    String phone = "+243"+editControllerName.text;
+
+
+
+   if(st){
+     var respond = await  managerService.createPhone(phone);
+     if(!respond['error'] && st && respond['success'] && respond['find']) {
+
+       //Navigator.pushNamed(context,"/setotp");
+     } else if( respond['success'])   {
+
+       UserModel user = UserModel(phone: phone);
+
+       Navigator.of(context).push(
+         MaterialPageRoute(
+           builder: (context) => CreateShopManager( user: user,callback: widget.callback,)
+         )
+       );
+
+
+
+     //  Navigator.pushNamed(context, "/createaccount");
+
+       // setState(() {
+       //   errorMessage ="Le numéro n'est pas enregistré";
+       // });
+     }
+
+   }
+
+  }
+
+  _pressDontHaveAccountButton(){
+    print("User press \"Don't have account\" button");
+    Navigator.pushNamed(context, "/createaccount");
+  }
+
+  _pressForgotPasswordButton(){
+    print("User press \"Forgot password\" button");
+    Navigator.pushNamed(context, "/forgot");
+  }
+  //
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  var windowWidth;
+  var windowHeight;
+  final editControllerName = TextEditingController();
+  final editControllerPassword = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    errorMessage =" ";
+  }
+
+  @override
+  void dispose() {
+    editControllerName.dispose();
+    editControllerPassword.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    windowWidth = MediaQuery.of(context).size.width;
+    windowHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      backgroundColor: theme.colorBackground,
+
+      body: Stack(
+        children: <Widget>[
+
+          IBackground4(width: windowWidth, colorsGradient:  [Colors.blue , Colors.blueAccent , Colors.blueGrey]),
+
+           Center(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 0, 20, windowHeight*0.1),
+                  width: windowWidth,
+                  child: _body(),
+                  )
+           ),
+
+
+
+
+        ],
+      ),
+    );
+  }
+
+  _body(){
+
+
+
+    return ListView(
+      shrinkWrap: true,
+      children: <Widget>[
+
+        Container(
+          margin: EdgeInsets.only(left: 15, right: 20),
+          alignment: Alignment.centerLeft,
+          child: Text("Entrez son numéro de téléphone"    ,                    // "Let's start with LogIn!"
+              style: theme.text20boldWhite
+          ),
+        ),
+        SizedBox(height: 20,),
+
+        IBox(
+            color: theme.colorBackgroundDialog,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 15,),
+                Container(
+                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: IInputField2(
+                      code: "+243",
+                      hint: "Numéro de téléphone",            // "Login"
+                      icon: Icons.phone,
+                      colorDefaultText: Colors.blue,
+                      colorBackground: theme.colorBackgroundDialog,
+                      controller: editControllerName,
+                      type: TextInputType.emailAddress
+                    )
+                ),
+                SizedBox(height: 10,),
+                // Container(
+                //     margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                //     child: IInputField2Password(
+                //       hint: strings.get(15),            // "Password"
+                //       icon: Icons.vpn_key,
+                //       colorDefaultText: theme.colorPrimary,
+                //       colorBackground: theme.colorBackgroundDialog,
+                //       controller: editControllerPassword,
+                //     )),
+                SizedBox(height: 10,),
+                Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: IButton(pressButton: _pressLoginButton, text: "Continuer", // LOGIN
+                    color: Colors.blue,
+                    textStyle: theme.text16boldWhite,),
+                ),
+                SizedBox(height: 15,),
+                Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+
+                    Text(errorMessage, style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+
+                  ],
+                ),
+
+
+                SizedBox(height: 15,),
+
+              ],
+            )
+        ),
+
+      ],
+    );
+  }
+
+}
